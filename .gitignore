@@ -18,5 +18,4 @@ hs_err_pid*
 
 .idea
 connection.properties
-src/main/resources/connection.properties
 target/
