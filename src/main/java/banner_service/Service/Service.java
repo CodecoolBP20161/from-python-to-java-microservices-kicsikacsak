@@ -42,8 +42,11 @@ public class Service {
     }
 
     public JSONObject getBanner(String user) {
+        ProductDaoJbdc productDaoJbdc = ProductDaoJbdc.getInstance();
+        Product product = productDaoJbdc.selectMostBoughtItem(user);
         JSONObject obj = new JSONObject();
-        obj.put("Advertisement", customer_HTML);
+
+        obj.put("Advertisement", createHTML(product));
         obj.put("status", "done");
         return obj;
     }
@@ -62,7 +65,7 @@ public class Service {
                 productDaoJbdc.add(actualProduct);
             }
         }
-        Product product = productDaoJbdc.selectMostBoughtItem("user");
+        Product product = productDaoJbdc.selectMostBoughtItem(user);
 
         System.out.println(product.getUser() + product.getQuantity());
         JSONObject obj = new JSONObject();
@@ -73,7 +76,7 @@ public class Service {
     }
 
     public String createHTML(Product product){
-        return "<style>#suggestion {height: 100px;width: 500px;background-color: pink;border-style: dotted;text-align: center;}p{font-style: oblique;color: green;}</style>" +
+        return "<style>#suggestion {height: 100px;width: 500px;background-color: pink;border-style: dotted;text-align: center;}p{font-style: oblique;color: silver;}</style>" +
                 "<div id=\"suggestion\" class=\"container\">" +
                 "<div class=\"col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3\">" +
                 "<p>Suggestion:"+product.getCategory() +" "+ product.getName() +" "+product.getPrice()+"</p>" +
